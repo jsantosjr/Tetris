@@ -79,7 +79,7 @@ public class Board extends JPanel
 	  * @param row the List of BoardCells
 	  */
 	//**************************************************************************************************
-	public void attachRow(int rowNum, List row)
+	public void attachRow(int rowNum, List row)   
 	{
 		// make sure that the indicated row is valid
 		if (validYPos(rowNum))
