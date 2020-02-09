@@ -55,7 +55,7 @@ public class LShape extends ThreeSpaceShape
 		// set the rest of the Blocks
 		for (int i = 1; i < posFromFocus.length; i++)
 		{
-			// create a Block with it's cooresponding x and y positions
+			// create a Block with it's corresponding x and y positions
 			Block block = new Block(focalBlock.getXPos() + posFromFocus[i][0],
 			                        focalBlock.getYPos() + posFromFocus[i][1],
 			                        getColor());

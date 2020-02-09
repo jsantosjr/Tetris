@@ -100,7 +100,6 @@ public abstract class FourSpaceShape extends Shape
 			{
 				retVal = false;
 				break;
-
 			}
 		}
 
@@ -145,14 +144,14 @@ public abstract class FourSpaceShape extends Shape
 		// NOTE: If the all the Blocks of this Shape are on the same row, then we'll want to //
 		//       rotate the Shape so that it's positioned vertically. After rotating it, the //
 		//       Shape should look as follows:												 //
-		// 																					 //
-		//                       *    														 //
-		//                       #                                                           //
-		//                       * 															 //
+		//                                                                                   //
 		//                       *                                                           //
-		//                        															 //
+		//                       #                                                           //
+		//                       *                                                           //
+		//                       *                                                           //
+		//                                                                                   //
 		//       Note that the # indicates the focal Block while the *'s indicate all the    //
-		//       other Blocks. 																 //
+		//       other Blocks.                                                               //
 		//***********************************************************************************//
 		if (blocksOnSameRow())
 		{
@@ -160,13 +159,13 @@ public abstract class FourSpaceShape extends Shape
 			// NOTE: This holds the distances of each Block relative to the focal Block. Note that //
 			//       the first element of each array holds the relative x position while the       //
 			//       second element of each array holds the relative y position.                   //
-			//    																				   //
+			//                                                                                     //
 			//                1st element = relative x position                                    //
 			//                2nd element = relative y position                                    //
-			//																					   //
+			//                                                                                     //
 			//       Note that the first array holds the relative x and y positions of the focal   //
 			//       Block. Both values are equal to 0 since the focal Block stays put when this   //
-			//       Shape is rotated. 															   //
+			//       Shape is rotated.                                                             //
 			//*************************************************************************************//
 			int relativePos[][] = {{0, 0},{0, -1},{0, 1},{0, 2}};
 
@@ -176,10 +175,10 @@ public abstract class FourSpaceShape extends Shape
 
 		//*********************************************************************************//
 		// NOTE: Rotate the Shape so that it's positioned horizontally. After rotating it, //
-		//       the Shape should look as follows:										   //
-		//         																		   //
-		//                             *#*** 							                   //
-		//  																			   //
+		//       the Shape should look as follows:                                         //
+		//                                                                                 //
+		//                             *#***                                               //
+		//                                                                                 //
 		//       Note that the # indicates the focal Block while the *'s indicate all the  //
 		//       other Blocks. 															   //
 		//*********************************************************************************//

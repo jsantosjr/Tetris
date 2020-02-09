@@ -126,10 +126,10 @@ public abstract class ThreeSpaceShape extends Shape
 		//              # # #                                            //
 		//              # * #                                            //
 		//              # # #                                            //
-		// 																 //
+		//                                                               //
 		//       Note that the path blocks will be set in the following  //
-		//       order: 												 //
-		//																 //
+		//       order:                                                  //
+		//                                                               //
 		//              0 1 2                                            //
 		//              7 * 3                                            //
 		//              6 5 4                                            //
@@ -147,14 +147,14 @@ public abstract class ThreeSpaceShape extends Shape
 		//       the current shape looks like this (where @'s are the     //
 		//       cells occupying the shape):                              //
 		//          # @ #                                                 //
-		//          # * #												  //
-		//          # @ @												  //
+		//          # * #                                                 //
+		//          # @ @                                                 //
 		//                                                                //
 		//       After running through the code below, the shape on the   //
-		//       path will look like this:								  //
-		//          # # #											      //
-		//          @ * @												  //
-		//			@ # #												  //
+		//       path will look like this:                                //
+		//          # # #                                                 //
+		//          @ * @                                                 //
+		//          @ # #                                                 //
 		//****************************************************************//
 		for (int blockNum = 0; blockNum < blocks.size(); blockNum++)
 		{
@@ -175,8 +175,8 @@ public abstract class ThreeSpaceShape extends Shape
 					int nextPathNum = (pathNum + 2) % path.length;
 
 					// move this block to the x and y position
-					block.setXPos( path[nextPathNum].getXPos());
-					block.setYPos( path[nextPathNum].getYPos());
+					block.setXPos(path[nextPathNum].getXPos());
+					block.setYPos(path[nextPathNum].getYPos());
 
 					break;
 				}

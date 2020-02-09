@@ -11,11 +11,11 @@ import javax.swing.*;
 public class BoardCell
 {
 	// data members
-	private boolean empty;
-	private Color   color;
-	private int     xPos;
-	private int     yPos;
-	private JButton cell;
+	private boolean m_empty;
+	private Color   m_color;
+	private int     m_xPos;
+	private int     m_yPos;
+	private JButton m_cell;
 
 	//**************************************************************************************************
 	/** Constructs a copy of the passed in BoardCell.
@@ -28,16 +28,16 @@ public class BoardCell
 		this(boardCell.getXPos(), boardCell.getYPos(), new Color(boardCell.getColor().getRGB()) );
 
 		// set the empty status of this BoardCell
-		empty = boardCell.isEmpty();
+		m_empty = boardCell.isEmpty();
 
 		// set the cell to be enabled or disabled, depending on the status of the passed in BoardCell
-		cell.setEnabled(boardCell.getCellJButton().isEnabled());
+		m_cell.setEnabled(boardCell.getCellJButton().isEnabled());
 
 		// set the cell to be visible or invisible, depending on the status of the passed in BoardCell
-		cell.setVisible(boardCell.getCellJButton().isVisible());
+		m_cell.setVisible(boardCell.getCellJButton().isVisible());
 
 		// set the cell's border paint on or off, depending on the status of the passed in BoardCell
-		cell.setBorderPainted(boardCell.getCellJButton().isBorderPainted());
+		m_cell.setBorderPainted(boardCell.getCellJButton().isBorderPainted());
 	}
 
 	//**************************************************************************************************
@@ -50,29 +50,29 @@ public class BoardCell
 	public BoardCell(int xPos, int yPos, Color color)
 	{
 		// set the x and y positions of this BoardCell
-		this.xPos = xPos;
-		this.yPos = yPos;
+		m_xPos = xPos;
+		m_yPos = yPos;
 
 		// set this BoardCell to be empty
-		empty = true;
+		m_empty = true;
 
 		// set the Color of this BoardCell
-		this.color = color;
+		m_color = color;
 
 		// create the cell (which will be represented as a JButton)
-		cell = new JButton();
+		m_cell = new JButton();
 
 		// set the color of the cell
-		cell.setBackground(color);
+		m_cell.setBackground(color);
 
 		// we want to disable the cell (this is, the JButton) since we don't want it to be pressed
-		cell.setEnabled(false);
+		m_cell.setEnabled(false);
 
 		// set the cell to be invisible since it's empty
-		cell.setVisible(false);
+		m_cell.setVisible(false);
 
 		// disable the border paint of the cell
-		cell.setBorderPainted(false);
+		m_cell.setBorderPainted(false);
 	}
 
 	//**************************************************************************************************
@@ -83,7 +83,7 @@ public class BoardCell
     public void display()
     {
 		// make the cell visible
-		cell.setVisible(true);
+		m_cell.setVisible(true);
 	}
 
 	//**************************************************************************************************
@@ -94,7 +94,7 @@ public class BoardCell
 	public JButton getCellJButton()
 	{
 		// get the JButton that represents this BoardCell
-		return cell;
+		return m_cell;
 	}
 
 	//**************************************************************************************************
@@ -105,7 +105,7 @@ public class BoardCell
 	public Color getColor()
 	{
 		// get the Color
-		return color;
+		return m_color;
 	}
 
     //**************************************************************************************************
@@ -116,7 +116,7 @@ public class BoardCell
     public int getXPos()
     {
 		// get the x position
-		return xPos;
+		return m_xPos;
 	}
 
     //**************************************************************************************************
@@ -127,7 +127,7 @@ public class BoardCell
     public int getYPos()
     {
 		// get the y position
-		return yPos;
+		return m_yPos;
 	}
 
 	//**************************************************************************************************
@@ -138,7 +138,7 @@ public class BoardCell
 	public boolean isEmpty()
 	{
 		// returns true if empty
-		return empty;
+		return m_empty;
 	}
 
 	//**************************************************************************************************
@@ -150,7 +150,7 @@ public class BoardCell
 	public void setEmpty(boolean e)
 	{
 		// set whether or not this BoardCell is empty
-		empty = e;
+		m_empty = e;
 	}
 
 	//**************************************************************************************************
@@ -161,7 +161,7 @@ public class BoardCell
 	public void setColor(Color color)
 	{
 		// set the Color of this BoardCell
-		this.color = color;
-		cell.setBackground(color);
+		m_color = color;
+		m_cell.setBackground(color);
 	}
 }
