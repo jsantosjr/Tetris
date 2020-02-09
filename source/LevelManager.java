@@ -10,11 +10,11 @@ import javax.swing.*;
   * animation timer will be decreased.
   */
 //******************************************************************************************************
+@SuppressWarnings("serial")
 public class LevelManager extends JLabel implements Observer
 {
 	// data members
 	private BoardManager m_boardManager;
-	private int          m_level;
 
 	public LevelManager(BoardManager boardManager)
 	{

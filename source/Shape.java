@@ -12,10 +12,10 @@ import java.util.*;
 public abstract class Shape
 {
 	// data members
-	private Block m_focalBlock;
-	private Board m_board;
-	private Color m_color;
-	private List  m_blocks;
+	private Block       m_focalBlock;
+	private Board       m_board;
+	private Color       m_color;
+	private List<Block> m_blocks;
 
 	//**************************************************************************************************
 	/** Constructs a Shape object that is set relative to the passed in Board.
@@ -29,7 +29,7 @@ public abstract class Shape
 		m_board = b;
 
 		// create the ArrayList that will hold the Blocks of this Shape
-		m_blocks = new ArrayList();
+		m_blocks = new ArrayList<Block>();
 
 		// set the color of this Shape
 		m_color = color;
@@ -56,7 +56,7 @@ public abstract class Shape
 			for (int i = 0; i < m_blocks.size(); i++)
 			{
 				// get the next Block of this Shape
-				Block block = (Block)m_blocks.get(i);
+				Block block = m_blocks.get(i);
 
 				// only make changes to the Board if the block is on a valid position
 				if (m_board.validPos(block.getXPos(), block.getYPos()))
@@ -95,7 +95,7 @@ public abstract class Shape
 		for (int i = 0; i < m_blocks.size(); i++)
 		{
 			// get the next Block
-			Block block = (Block)m_blocks.get(i);
+			Block block = m_blocks.get(i);
 
 			// get the BoardCell that's below this Block
 			BoardCell boardCell = m_board.getBoardCell(block.getXPos(), block.getYPos() + 1);
@@ -135,7 +135,7 @@ public abstract class Shape
 		for (int i = 0; i < m_blocks.size(); i++)
 		{
 			// get the next Block
-			Block block = (Block)m_blocks.get(i);
+			Block block = m_blocks.get(i);
 
 			// get the BoardCell to the left of this Block
 			BoardCell boardCell = m_board.getBoardCell(block.getXPos() - 1, block.getYPos());
@@ -175,7 +175,7 @@ public abstract class Shape
 		for (int i = 0; i < m_blocks.size(); i++)
 		{
 			// get the next Block
-			Block block = (Block)m_blocks.get(i);
+			Block block = m_blocks.get(i);
 
 			// get the BoardCell to the right of this Block
 			BoardCell boardCell = m_board.getBoardCell(block.getXPos() + 1, block.getYPos());
@@ -208,7 +208,7 @@ public abstract class Shape
 	  * @return the List of Blocks that compose this Shape
 	  */
 	//**************************************************************************************************
-	public List getBlocks()
+	public List<Block> getBlocks()
 	{
 		// get the Blocks composing this Shape
 		return m_blocks;
@@ -292,7 +292,7 @@ public abstract class Shape
 			for (int i = 0; i < m_blocks.size(); i++)
 			{
 				// get the next Block of this Shape
-				Block block = (Block)m_blocks.get(i);
+				Block block = m_blocks.get(i);
 
 				// move this Block down one row
 				block.setYPos(block.getYPos() + 1);
@@ -319,7 +319,7 @@ public abstract class Shape
 			for (int i = 0; i < m_blocks.size(); i++)
 			{
 				// get the next Block of this Shape
-				Block block = (Block)m_blocks.get(i);
+				Block block = m_blocks.get(i);
 
 				// move this Block one position to the left
 				block.setXPos(block.getXPos() - 1);
@@ -346,7 +346,7 @@ public abstract class Shape
 			for (int i = 0; i < m_blocks.size(); i++)
 			{
 				// get the next Block of this Shape
-				Block block = (Block)m_blocks.get(i);
+				Block block = m_blocks.get(i);
 
 				// move this Block one position to the right
 				block.setXPos(block.getXPos() + 1);
@@ -370,7 +370,7 @@ public abstract class Shape
 		for (int i = 0; i < m_blocks.size(); i++)
 		{
 			// get the next Block of this Shape
-			Block block = (Block)m_blocks.get(i);
+			Block block = m_blocks.get(i);
 
 			// check to see if this Block is on the first column
 			if (block.getXPos() == 0)
@@ -397,7 +397,7 @@ public abstract class Shape
 		for (int i = 0; i < m_blocks.size(); i++)
 		{
 			// get the next Block of this Shape
-			Block block = (Block)m_blocks.get(i);
+			Block block = m_blocks.get(i);
 
 			// check to see if this Block is on the first row
 			if (block.getYPos() == 0)
@@ -424,7 +424,7 @@ public abstract class Shape
 		for (int i = 0; i < m_blocks.size(); i++)
 		{
 			// get the next Block of this Shape
-			Block block = (Block)m_blocks.get(i);
+			Block block = m_blocks.get(i);
 
 			// check to see if this Block is on the last column
 			if (block.getXPos() == m_board.getNumOfCols() - 1)
@@ -451,7 +451,7 @@ public abstract class Shape
 		for (int i = 0; i < m_blocks.size(); i++)
 		{
 			// get the next Block of this Shape
-			Block block = (Block)m_blocks.get(i);
+			Block block = m_blocks.get(i);
 
 			// check to see if this Block is on the last row
 			if (block.getYPos() == m_board.getNumOfRows() - 1)
@@ -479,7 +479,7 @@ public abstract class Shape
 			for (int i = 0; i < m_blocks.size(); i++)
 			{
 				// get the next Block of the this Shape
-				Block block = (Block)m_blocks.get(i);
+				Block block = m_blocks.get(i);
 
 				// only make changes to the Board if the block is on a valid position
 				if (m_board.validPos(block.getXPos(), block.getYPos()))
@@ -524,7 +524,7 @@ public abstract class Shape
 	  * @param blocks the List of Blocks that compose this Shape
 	  */
 	//**************************************************************************************************
-	public void setBlocks(List blocks)
+	public void setBlocks(List<Block> blocks)
 	{
 		// set the List of Blocks that compose this Shape
 		m_blocks = blocks;

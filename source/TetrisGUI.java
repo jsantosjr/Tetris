@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import javax.swing.*;
 import javax.swing.JOptionPane;
 
+@SuppressWarnings("serial")
 public class TetrisGUI extends JFrame
 {
 	// data members
@@ -25,6 +26,7 @@ public class TetrisGUI extends JFrame
 	{
 		// create the TetrisGUI
 		TetrisGUI tetrisGUI = new TetrisGUI();
+		tetrisGUI.run();
 	}
 	//**************************************************************************************************
 	public TetrisGUI()
@@ -53,10 +55,6 @@ public class TetrisGUI extends JFrame
 		// display the window
 		setVisible(true);
 
-		// start the tetris game
-		m_playerBoardManager.startGame();
-		//opponentBoardManager.startGame();
-
 		// close the program when the x is pressed
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
@@ -80,7 +78,7 @@ public class TetrisGUI extends JFrame
 		getContentPane().add(m_playerBoardManager);
 
 		// add the opponentBoardManager to the content pane
-		//getContentPane().add(opponentBoardManager);
+		//getContentPane().add(m_opponentBoardManager);
 	}
 	//**************************************************************************************************
 	private void initLevelManagers()
@@ -95,7 +93,7 @@ public class TetrisGUI extends JFrame
 		m_playerBoardManager.attach(m_playerLevelManager);
 
 		// attach the opponentLevelManager to the opponentBoardManager
-		//opponentBoardManager.attach( opponentLevelManager);
+		m_opponentBoardManager.attach(m_opponentLevelManager);
 	}
 	//**************************************************************************************************
 	private void initScoreManagers()
@@ -110,6 +108,13 @@ public class TetrisGUI extends JFrame
 		m_playerBoardManager.attach(m_playerScoreManager);
 
 		// attach the opponentScoreManager to the opponentBoardManager
-		//opponentBoardManager.attach( opponentScoreManager);
+		m_opponentBoardManager.attach(m_opponentScoreManager);
+	}
+	//**************************************************************************************************
+	public void run()
+	{
+		// start the Tetris game
+		m_playerBoardManager.startGame();
+		//m_opponentBoardManager.startGame();
 	}
 }

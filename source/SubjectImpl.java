@@ -13,7 +13,7 @@ import java.util.*;
 public class SubjectImpl implements Subject
 {
 	// the list of Observer objects
-	private List m_observers;
+	private List<Observer> m_observers;
 
 	//***************************************************************************************************
 	/** Constructs a SubjectImp object that will take care of implementing the methods found in the
@@ -23,7 +23,7 @@ public class SubjectImpl implements Subject
 	public SubjectImpl()
 	{
 		// create the list that will hold the Observers
-		m_observers = new ArrayList();
+		m_observers = new ArrayList<Observer>();
 	}
 
 	//**************************************************************************************************
@@ -57,7 +57,7 @@ public class SubjectImpl implements Subject
 		for (int i = 0; i < m_observers.size(); i++)
 		{
 			// get an existing Observer
-			Observer observer = (Observer)m_observers.get(i);
+			Observer observer = m_observers.get(i);
 
 			// have the Observer update itself
 			observer.update();

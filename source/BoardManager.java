@@ -10,6 +10,7 @@ import javax.swing.*;
   * the falling Shapes of the Tetris game. The other is used to display the next Shape.
   */
 //******************************************************************************************************
+@SuppressWarnings("serial")
 public class BoardManager extends JPanel implements ActionListener, KeyListener, Subject
 {
 	// reference to the subject implementation
@@ -265,7 +266,7 @@ public class BoardManager extends JPanel implements ActionListener, KeyListener,
 	public void keyPressed(KeyEvent event)
 	{
 		// get the String representation of the key that was just pressed
-		String key = event.getKeyText(event.getKeyCode());
+		String key = KeyEvent.getKeyText(event.getKeyCode());
 
 		// move the shape of game board according to the key that was pressed
 		m_gameBoard.moveShape(key);

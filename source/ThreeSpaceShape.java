@@ -38,7 +38,7 @@ public abstract class ThreeSpaceShape extends Shape
 		rotate(true, false);
 
 		// get the Blocks of this Shape
-		List blocks = getBlocks();
+		List<Block> blocks = getBlocks();
 
 		//***************************************************************************************//
 		// NOTE: Check if any of the Blocks lie on top of one of the BoardCells of this Shape's  //
@@ -48,7 +48,7 @@ public abstract class ThreeSpaceShape extends Shape
 		for (int i = 0; i < blocks.size(); i++)
 		{
 			// get the next Block of this Shape
-			Block block = (Block)blocks.get(i);
+			Block block = blocks.get(i);
 
 			// get the BoardCell that's at the same position as the new Block
 			BoardCell boardCell = getBoard().getBoardCell(block.getXPos(), block.getYPos());
@@ -65,7 +65,6 @@ public abstract class ThreeSpaceShape extends Shape
 			{
 				retVal = false;
 				break;
-
 			}
 		}
 
@@ -103,7 +102,7 @@ public abstract class ThreeSpaceShape extends Shape
 		Block path[] = new Block[8];
 
 		// get the blocks that compose this Shape
-		List blocks = getBlocks();
+		List<Block> blocks = getBlocks();
 
 		//*********************************************************************************//
 		// NOTE: For each path block, this holds the distance away from the focal block of //
@@ -159,7 +158,7 @@ public abstract class ThreeSpaceShape extends Shape
 		for (int blockNum = 0; blockNum < blocks.size(); blockNum++)
 		{
 			// get the next Block from the ArrayList of Blocks
-			Block block = (Block)blocks.get(blockNum);
+			Block block = blocks.get(blockNum);
 
 			for (int pathNum = 0; pathNum < path.length; pathNum++)
 			{

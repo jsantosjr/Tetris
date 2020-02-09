@@ -33,7 +33,7 @@ public class JShape extends ThreeSpaceShape
 	protected void initCoordinates()
 	{
 		// get the List of Blocks for this Shape
-		List blocks = getBlocks();
+		List<Block> blocks = getBlocks();
 		blocks.clear();
 
 		// get the focal Block

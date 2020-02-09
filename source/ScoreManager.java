@@ -8,6 +8,7 @@ import javax.swing.*;
   * BoardManager, being a Subject, will call the ScoreManager when the score needs to be updated.
   */
 //******************************************************************************************************
+@SuppressWarnings("serial")
 public class ScoreManager extends JLabel implements Observer
 {
 	// data members

@@ -34,7 +34,7 @@ public abstract class FourSpaceShape extends Shape
 		boolean retVal = true;
 
 		// get the List of Blocks that compose this Shape
-		List blocks = getBlocks();
+		List<Block> blocks = getBlocks();
 
 		// get the y position of the focal Block
 		int yPosOfFBlock = getFocalBlock().getYPos();
@@ -42,7 +42,7 @@ public abstract class FourSpaceShape extends Shape
 		for (int i = 0; i < blocks.size(); i++)
 		{
 			// get the next Block of this Shape
-			Block block = (Block)blocks.get(i);
+			Block block = blocks.get(i);
 
 			//************************************************************************************//
 			// NOTE: If the y position of the next Block is not equal to that of the focal Block, //
@@ -53,7 +53,6 @@ public abstract class FourSpaceShape extends Shape
 				retVal = false;
 				break;
 			}
-
 		}
 
 		return retVal;
@@ -73,7 +72,7 @@ public abstract class FourSpaceShape extends Shape
 		rotate(true, false);
 
 		// get the Blocks of this Shape
-		List blocks = getBlocks();
+		List<Block> blocks = getBlocks();
 
 		//***************************************************************************************//
 		// NOTE: Check if any of the Blocks lie on top of one of the BoardCells of this Shape's  //
@@ -83,7 +82,7 @@ public abstract class FourSpaceShape extends Shape
 		for (int i = 0; i < blocks.size(); i++)
 		{
 			// get the next Block of this Shape
-			Block block = (Block)blocks.get(i);
+			Block block = blocks.get(i);
 
 			// get the BoardCell that's at the same position as the new Block
 			BoardCell boardCell = getBoard().getBoardCell(block.getXPos(), block.getYPos());
@@ -132,7 +131,7 @@ public abstract class FourSpaceShape extends Shape
 		removeFromBoard(remove);
 
 		// get the List of Blocks that compose this Shape
-		List blocks = getBlocks();
+		List<Block> blocks = getBlocks();
 
         // get the focal Block
         Block focalBlock = getFocalBlock();

@@ -6,6 +6,7 @@ import javax.swing.*;
 import java.util.List;
 import java.util.ArrayList;
 
+@SuppressWarnings("serial")
 public class Board extends JPanel
 {
 	// data members
@@ -79,7 +80,7 @@ public class Board extends JPanel
 	  * @param row the List of BoardCells
 	  */
 	//**************************************************************************************************
-	public void attachRow(int rowNum, List row)   
+	public void attachRow(int rowNum, List<BoardCell> row)
 	{
 		// make sure that the indicated row is valid
 		if (validYPos(rowNum))
@@ -88,7 +89,7 @@ public class Board extends JPanel
 			for (int col = 0; col < getNumOfCols(); col++)
 			{
 				// get the next BoardCell from the passed in List
-				BoardCell boardCell = (BoardCell)row.get(col);
+				BoardCell boardCell = row.get(col);
 
 				// set the empty status of the BoardCell in this Board
 				m_boardCells[rowNum][col].setEmpty( boardCell.isEmpty());
@@ -109,7 +110,7 @@ public class Board extends JPanel
 	public void cascadeRows()
 	{
 		// will hold copies of all the non-empty rows
-		List nonEmptyRows = new ArrayList();
+		List<List<BoardCell>> nonEmptyRows = new ArrayList<List<BoardCell>>();
 
 		// temporarily remove the current shape from the Board
 		m_currentShape.removeFromBoard(true);
@@ -143,7 +144,7 @@ public class Board extends JPanel
 		for (int i = 0; i < nonEmptyRows.size(); i++)
 		{
 			// get the next non-empty row of BoardCells
-			List nonEmptyRow = (List)nonEmptyRows.get(i);
+			List<BoardCell>nonEmptyRow = nonEmptyRows.get(i);
 
 			// add the non-empty row back to the Board
 			attachRow((getNumOfRows() - 1) - i, nonEmptyRow);
@@ -205,16 +206,16 @@ public class Board extends JPanel
 	  * @return a List containing a copy of the indicated row of BoardCells
 	  */
 	//**************************************************************************************************
-	public List copyOfRow(int rowNum)
+	public List<BoardCell> copyOfRow(int rowNum)
 	{
 		// will holds the BoardCells contained in the specified row
-		List rowOfBoardCells = null;
+		List<BoardCell> rowOfBoardCells = null;
 
 		// make sure that the indicated row is valid
 		if (validYPos(rowNum))
 		{
 			// create the List of BoardCells
-			rowOfBoardCells = new ArrayList();
+			rowOfBoardCells = new ArrayList<BoardCell>();
 
 			// copy all the BoardCells of the indicated row
 			for (int col = 0; col < getNumOfCols(); col++)
@@ -376,16 +377,16 @@ public class Board extends JPanel
 	  * @param rowNum the row of BoardCells desired
 	  */
 	//**************************************************************************************************
-	public List getRow(int rowNum)
+	public List<BoardCell> getRow(int rowNum)
 	{
 		// will holds the BoardCells contained in the specified row
-		List rowOfBoardCells = null;
+		List<BoardCell> rowOfBoardCells = null;
 
 		// make sure that the indicated row is valid
 		if (validYPos(rowNum))
 		{
 			// create the List of BoardCells
-			rowOfBoardCells = new ArrayList();
+			rowOfBoardCells = new ArrayList<BoardCell>();
 
 			// store all the BoardCells of the indicated row
 			for (int col = 0; col < getNumOfCols(); col++)
@@ -613,12 +614,12 @@ public class Board extends JPanel
 		boolean retVal = false;
 
 		// get the List of Blocks that compose the Shape
-		List blocks = shape.getBlocks();
+		List<Block> blocks = shape.getBlocks();
 
 		for (int i = 0; i < blocks.size(); i++)
 		{
 			// get the next Block of the Shape
-			Block block = (Block)blocks.get(i);
+			Block block = blocks.get(i);
 
 			// check to see the BoardCell has the same coordinates as the Block
 			if (block.getXPos() == boardCell.getXPos() &&
