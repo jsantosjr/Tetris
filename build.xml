@@ -1,0 +1,29 @@
+<project name="Tetris" default="build" basedir="." >
+	<property name="class.main">TetrisGUI</property>
+	<property name="dir.source">source</property>
+	<property name="dir.build">build</property>
+	<property name="dir.build.classes">${dir.build}/classes</property>
+	<property name="dir.build.javadoc">${dir.build}/javadoc</property>
+	<property name="file.jar">${dir.build}/tetris.jar</property>
+	
+	<target name="clean">
+		<delete dir="${dir.build}"/>
+	</target>
+	
+	<target name="init">
+		<mkdir dir="${dir.build}"/>
+		<mkdir dir="${dir.build.classes}"/>
+	</target>
+	
+	<target name="compile" depends="clean, init">
+		<javac includeantruntime="false" srcdir="${dir.source}" destdir="${dir.build.classes}"/>
+	</target>
+	
+	<target name="build" depends="compile">
+		<jar basedir="${dir.build.classes}" file="${file.jar}">
+			<manifest>
+				<attribute name="main-class" value="${class.main}"/>
+			</manifest>
+		</jar>
+	</target>
+</project>
