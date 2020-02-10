@@ -1,3 +1,0 @@
-@echo off
-echo Launching Tetris...
-start javaw -jar "..\build\tetris.jar"
