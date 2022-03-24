@@ -6,17 +6,18 @@ import javax.swing.*;
 import java.util.List;
 import java.util.ArrayList;
 
+@SuppressWarnings("serial")
 public class Board extends JPanel
 {
 	// data members
-	private BoardCell boardCells[][];
-	private Color     color;
-	private int       numOfCols;
-	private int       numOfRows;
-	private JLabel    titleLabel;
-	private JPanel    boardPanel;
-	private Shape     currentShape;
-	private String    title;
+	private BoardCell m_boardCells[][];
+	private Color     m_color;
+	private int       m_numOfCols;
+	private int       m_numOfRows;
+	private JLabel    m_titleLabel;
+	private JPanel    m_boardPanel;
+	private Shape     m_currentShape;
+	private String    m_title;
 
 	//**************************************************************************************************
 	/** Creates a Board object that will have the specified dimension, along with a title. Note that the
@@ -42,22 +43,22 @@ public class Board extends JPanel
 	public Board(int rows, int cols, String title, Color color)
 	{
 		// set the number of columns
-		numOfCols = cols;
+		m_numOfCols = cols;
 
 		// set the number of rows
-		numOfRows = rows;
+		m_numOfRows = rows;
 
 		// set the color of this Board
-		this.color = color;
+		m_color = color;
 
 		// set the title of this Board
-		this.title = title;
+		m_title = title;
 
 		// create the Label that will contain the title
-		titleLabel = new JLabel(title, SwingConstants.CENTER);
+		m_titleLabel = new JLabel(title, SwingConstants.CENTER);
 
 		// initially, make the label invisible
-		titleLabel.setVisible(false);
+		m_titleLabel.setVisible(false);
 
 		// initialize all the panels
 		initPanels();
@@ -66,10 +67,10 @@ public class Board extends JPanel
 		initBoardCells();
 
 		// generate the current Shape
-		currentShape = generateShape();
+		m_currentShape = generateShape();
 
 		// add the current Shape to this Board
-		currentShape.addToBoard(true);
+		m_currentShape.addToBoard(true);
 	}
 
 	//**************************************************************************************************
@@ -79,7 +80,7 @@ public class Board extends JPanel
 	  * @param row the List of BoardCells
 	  */
 	//**************************************************************************************************
-	public void attachRow(int rowNum, List row)   
+	public void attachRow(int rowNum, List<BoardCell> row)
 	{
 		// make sure that the indicated row is valid
 		if (validYPos(rowNum))
@@ -88,16 +89,16 @@ public class Board extends JPanel
 			for (int col = 0; col < getNumOfCols(); col++)
 			{
 				// get the next BoardCell from the passed in List
-				BoardCell boardCell = (BoardCell)row.get(col);
+				BoardCell boardCell = row.get(col);
 
 				// set the empty status of the BoardCell in this Board
-				boardCells[rowNum][col].setEmpty( boardCell.isEmpty());
+				m_boardCells[rowNum][col].setEmpty( boardCell.isEmpty());
 
 				// set the color of the BoardCell in this Board
-				boardCells[rowNum][col].setColor( boardCell.getColor());
+				m_boardCells[rowNum][col].setColor( boardCell.getColor());
 
 				// set the border paint status of the BoardCell in this Board
-				boardCells[rowNum][col].getCellJButton().setBorderPainted(boardCell.getCellJButton().isBorderPainted());
+				m_boardCells[rowNum][col].getCellJButton().setBorderPainted(boardCell.getCellJButton().isBorderPainted());
 			}
 		}
 	}
@@ -109,10 +110,10 @@ public class Board extends JPanel
 	public void cascadeRows()
 	{
 		// will hold copies of all the non-empty rows
-		List nonEmptyRows = new ArrayList();
+		List<List<BoardCell>> nonEmptyRows = new ArrayList<List<BoardCell>>();
 
 		// temporarily remove the current shape from the Board
-		currentShape.removeFromBoard(true);
+		m_currentShape.removeFromBoard(true);
 
 		// clear any rows that are completely filled
 		for (int row = getNumOfRows() - 1; row >= 0; row--)
@@ -132,7 +133,7 @@ public class Board extends JPanel
 			if (!rowIsEmpty(row))
 			{
 				// store a copy of the non-empty row
-				nonEmptyRows.add( copyOfRow(row));
+				nonEmptyRows.add(copyOfRow(row));
 
 				// remove the actual row from the Board
 				clearRow(row);
@@ -143,14 +144,14 @@ public class Board extends JPanel
 		for (int i = 0; i < nonEmptyRows.size(); i++)
 		{
 			// get the next non-empty row of BoardCells
-			List nonEmptyRow = (List)nonEmptyRows.get(i);
+			List<BoardCell>nonEmptyRow = nonEmptyRows.get(i);
 
 			// add the non-empty row back to the Board
-			attachRow( (getNumOfRows() - 1) - i, nonEmptyRow);
+			attachRow((getNumOfRows() - 1) - i, nonEmptyRow);
 		}
 
 		// add the current Shape back to the Board
-		currentShape.addToBoard(true);
+		m_currentShape.addToBoard(true);
 
 	}
 
@@ -182,7 +183,7 @@ public class Board extends JPanel
 			for (int col = 0; col < getNumOfCols(); col++)
 			{
 				// get the next BoardCell in the indicated row
-				BoardCell boardCell = boardCells[rowNum][col];
+				BoardCell boardCell = m_boardCells[rowNum][col];
 
 				// set this BoardCell to be empty
 				boardCell.setEmpty(true);
@@ -205,21 +206,21 @@ public class Board extends JPanel
 	  * @return a List containing a copy of the indicated row of BoardCells
 	  */
 	//**************************************************************************************************
-	public List copyOfRow(int rowNum)
+	public List<BoardCell> copyOfRow(int rowNum)
 	{
 		// will holds the BoardCells contained in the specified row
-		List rowOfBoardCells = null;
+		List<BoardCell> rowOfBoardCells = null;
 
 		// make sure that the indicated row is valid
 		if (validYPos(rowNum))
 		{
 			// create the List of BoardCells
-			rowOfBoardCells = new ArrayList();
+			rowOfBoardCells = new ArrayList<BoardCell>();
 
 			// copy all the BoardCells of the indicated row
 			for (int col = 0; col < getNumOfCols(); col++)
 			{
-				rowOfBoardCells.add(new BoardCell(boardCells[rowNum][col]));
+				rowOfBoardCells.add(new BoardCell(m_boardCells[rowNum][col]));
 			}
 		}
 
@@ -233,15 +234,15 @@ public class Board extends JPanel
 	public void displayBoardPanel()
 	{
 		// display the title
-		titleLabel.setVisible(true);
+		m_titleLabel.setVisible(true);
 
 		// display the board panel
-		for (int row = 0; row < boardCells.length; row++)
+		for (int row = 0; row < m_boardCells.length; row++)
 		{
-			for (int col = 0; col < boardCells[row].length; col++)
+			for (int col = 0; col < m_boardCells[row].length; col++)
 			{
 				// display this particular BoardCell
-				boardCells[row][col].display();
+				m_boardCells[row][col].display();
 			}
 		}
 	}
@@ -320,7 +321,7 @@ public class Board extends JPanel
 		if (validPos(x, y))
 		{
 			// get the indicated BoardCell
-			boardCell = boardCells[y][x];
+			boardCell = m_boardCells[y][x];
 		}
 
 		return boardCell;
@@ -334,7 +335,7 @@ public class Board extends JPanel
 	public BoardCell[][] getBoardCells()
 	{
 		// get all the BoardCells of this Board
-		return boardCells;
+		return m_boardCells;
 	}
 
 	//**************************************************************************************************
@@ -345,7 +346,7 @@ public class Board extends JPanel
 	public Color getColor()
 	{
 		// get the color of this Board
-		return color;
+		return m_color;
 	}
 
 	//**************************************************************************************************
@@ -356,7 +357,7 @@ public class Board extends JPanel
 	public int getNumOfCols()
 	{
 		// get the number of columns
-		return numOfCols;
+		return m_numOfCols;
 	}
 
 	//**************************************************************************************************
@@ -367,7 +368,7 @@ public class Board extends JPanel
 	public int getNumOfRows()
 	{
 		// get the number of rows
-		return numOfRows;
+		return m_numOfRows;
 	}
 
 	//**************************************************************************************************
@@ -376,21 +377,21 @@ public class Board extends JPanel
 	  * @param rowNum the row of BoardCells desired
 	  */
 	//**************************************************************************************************
-	public List getRow(int rowNum)
+	public List<BoardCell> getRow(int rowNum)
 	{
 		// will holds the BoardCells contained in the specified row
-		List rowOfBoardCells = null;
+		List<BoardCell> rowOfBoardCells = null;
 
 		// make sure that the indicated row is valid
 		if (validYPos(rowNum))
 		{
 			// create the List of BoardCells
-			rowOfBoardCells = new ArrayList();
+			rowOfBoardCells = new ArrayList<BoardCell>();
 
 			// store all the BoardCells of the indicated row
 			for (int col = 0; col < getNumOfCols(); col++)
 			{
-				rowOfBoardCells.add(boardCells[rowNum][col]);
+				rowOfBoardCells.add(m_boardCells[rowNum][col]);
 			}
 		}
 
@@ -405,7 +406,7 @@ public class Board extends JPanel
 	public Shape getShape()
 	{
 		// get the current Shape
-		return currentShape;
+		return m_currentShape;
 	}
 
 	//**************************************************************************************************
@@ -416,7 +417,7 @@ public class Board extends JPanel
 	public String getTitle()
 	{
 		// get the title
-		return title;
+		return m_title;
 	}
 
 	//**************************************************************************************************
@@ -426,7 +427,7 @@ public class Board extends JPanel
 		// NOTE: Create arrays in the 2D array. Note that the number of rows in the 2D array are //
 		//       determined by the number of rows in the board.                                  //
 		//***************************************************************************************//
-		boardCells = new BoardCell[numOfRows][];
+		m_boardCells = new BoardCell[m_numOfRows][];
 
 		//*******************************************************************************//
 		// NOTE: Create a BoardCell for each area of the boardPanel. Note that since the //
@@ -434,18 +435,18 @@ public class Board extends JPanel
 		//       as grid cells. That is, the appropriate ones will light up when a shape //
 		//       happens to be on the board.                                             //
 		//*******************************************************************************//
-		for (int row = 0; row < numOfRows; row++)
+		for (int row = 0; row < m_numOfRows; row++)
 		{
 			// create columns for the next array in the 2D array of BoardCells
-			boardCells[row] = new BoardCell[numOfCols];
+			m_boardCells[row] = new BoardCell[m_numOfCols];
 
-			for (int col = 0; col < numOfCols; col++)
+			for (int col = 0; col < m_numOfCols; col++)
 			{
 				// create a BoardCell for this particular area of the boardPanel
-				boardCells[row][col] = new BoardCell(col, row, getColor());
+				m_boardCells[row][col] = new BoardCell(col, row, getColor());
 
 				// add the BoardCell to the boardPanel
-				boardPanel.add(boardCells[row][col].getCellJButton());
+				m_boardPanel.add(m_boardCells[row][col].getCellJButton());
 			}
 		}
 	}
@@ -457,18 +458,18 @@ public class Board extends JPanel
 		setLayout(new BorderLayout());
 
 		// create the board panel
-		boardPanel = new JPanel(new GridLayout(numOfRows, numOfCols));
+		m_boardPanel = new JPanel(new GridLayout(m_numOfRows, m_numOfCols));
 
 		// add the title of the board to the NORTH of this Board
-		add(titleLabel, BorderLayout.NORTH);
+		add(m_titleLabel, BorderLayout.NORTH);
 
 		// add the board panel to the CENTER of this Board
-		add(boardPanel, BorderLayout.CENTER);
+		add(m_boardPanel, BorderLayout.CENTER);
 	}
 
 	//**************************************************************************************************
-	/** Moves the curent shape to the direction indicated. Note that the Shape can only be moved if
-	  * no obstacles are obtructing it. An obstacle can include a boundary or any Block from the Board
+	/** Moves the current shape to the direction indicated. Note that the Shape can only be moved if
+	  * no obstacles are obstructing it. An obstacle can include a boundary or any Block from the Board
 	  * that is currently filled.
 	  * @param direction the direction in which to move the current Shape
 	  */
@@ -478,25 +479,25 @@ public class Board extends JPanel
 		if (direction.equals("Left"))
 		{
 			// move the current shape to the left
-			currentShape.moveLeft();
+			m_currentShape.moveLeft();
 		}
 		else if (direction.equals("Right"))
 		{
 			// move the current shape to the right
-			currentShape.moveRight();
+			m_currentShape.moveRight();
 		}
 		else if (direction.equals("Down"))
 		{
 			// move the current shape down
-			currentShape.moveDown();
+			m_currentShape.moveDown();
 		}
 		else if (direction.equals("Up"))
 		{
 			// make sure the current shape can be rotated
-			if (currentShape.canRotate())
+			if (m_currentShape.canRotate())
 			{
 				// rotate the current shape
-				currentShape.rotate(true, true);
+				m_currentShape.rotate(true, true);
 			}
 		}
 	}
@@ -518,7 +519,7 @@ public class Board extends JPanel
 			// check each column of the indicated row to see whether or not it's empty
 			for (int col = 0; col < getNumOfCols(); col++)
 			{
-				if (!boardCells[rowNum][col].isEmpty())
+				if (!m_boardCells[rowNum][col].isEmpty())
 				{
 					// this BoardCell is not empty and therefore, the indicated row is not fully empty
 					retVal = false;
@@ -547,7 +548,7 @@ public class Board extends JPanel
 			// check each column of the indicated row to see whether or not it's full
 			for (int col = 0; col < getNumOfCols(); col++)
 			{
-				if (boardCells[rowNum][col].isEmpty())
+				if (m_boardCells[rowNum][col].isEmpty())
 				{
 					// this BoardCell is empty and therefore, the indicated row is not completely full
 					retVal = false;
@@ -572,17 +573,17 @@ public class Board extends JPanel
 		shape.setBoard(this);
 
 		// set the current Shape
-		currentShape = shape;
+		m_currentShape = shape;
 
 		// set the focal Block of the current Shape to be centered
-		currentShape.getFocalBlock().setXPos(getNumOfCols() / 2);
-		currentShape.getFocalBlock().setYPos(0);
+		m_currentShape.getFocalBlock().setXPos(getNumOfCols() / 2);
+		m_currentShape.getFocalBlock().setYPos(0);
 
-		// readjust the Blocks of the Shape according to where the focal block is positioned
-		currentShape.initCoordinates();
+		// re-adjust the Blocks of the Shape according to where the focal block is positioned
+		m_currentShape.initCoordinates();
 
 		// add the current Shape to this Board
-		currentShape.addToBoard(true);
+		m_currentShape.addToBoard(true);
 	}
 
 	//**************************************************************************************************
@@ -593,10 +594,10 @@ public class Board extends JPanel
 	public void setTitle(String title)
 	{
 		// set the title of this Board
-		this.title = title;
+		m_title = title;
 
 		// place the new title into the title Label
-		titleLabel.setText(title);
+		m_titleLabel.setText(title);
 	}
 
 	//**************************************************************************************************
@@ -613,12 +614,12 @@ public class Board extends JPanel
 		boolean retVal = false;
 
 		// get the List of Blocks that compose the Shape
-		List blocks = shape.getBlocks();
+		List<Block> blocks = shape.getBlocks();
 
 		for (int i = 0; i < blocks.size(); i++)
 		{
 			// get the next Block of the Shape
-			Block block = (Block)blocks.get(i);
+			Block block = blocks.get(i);
 
 			// check to see the BoardCell has the same coordinates as the Block
 			if (block.getXPos() == boardCell.getXPos() &&

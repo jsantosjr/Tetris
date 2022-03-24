@@ -10,22 +10,23 @@ import javax.swing.*;
   * the falling Shapes of the Tetris game. The other is used to display the next Shape.
   */
 //******************************************************************************************************
+@SuppressWarnings("serial")
 public class BoardManager extends JPanel implements ActionListener, KeyListener, Subject
 {
-	// reference to the subject implemenation
-	private SubjectImpl subject;
+	// reference to the subject implementation
+	private SubjectImpl m_subject;
 
 	// data members
-	private Board        gameBoard;
-	private Board        nextShapeBoard;
-	private int          animationDelay = 1000;
-	private JFrame       window;
-	private JPanel       gameBoardPanel;
-	private JPanel       nextShapeBoardPanel;
-	private JPanel       scorePanel;
-	private Timer        animationTimer;
-	private int          level;
-	private int          score;
+	private Board        m_gameBoard;
+	private Board        m_nextShapeBoard;
+	private int          m_animationDelay = 1000;
+	private JFrame       m_window;
+	private JPanel       m_gameBoardPanel;
+	private JPanel       m_nextShapeBoardPanel;
+	private JPanel       m_scorePanel;
+	private Timer        m_animationTimer;
+	private int          m_level;
+	private int          m_score;
 
 	//**************************************************************************************************
 	/** Creates a BoardManager object consisting of a game Board and a Board containing the next
@@ -37,31 +38,31 @@ public class BoardManager extends JPanel implements ActionListener, KeyListener,
 	public BoardManager(Board gameBoard, TetrisGUI window)
 	{
 		// store the game Board
-		this.gameBoard = gameBoard;
+		m_gameBoard = gameBoard;
 
 		// create the nextShapeBoard
-		nextShapeBoard = new Board(2, 5, "Next Shape");
+		m_nextShapeBoard = new Board(2, 5, "Next Shape");
 
 		// store a reference to the window that this BoardManager is associated with
-		this.window = window;
+		m_window = window;
 
 		// initialize the level to 1
-		level = 1;
+		m_level = 1;
 
 		// initialize the score to 0
-		score = 0;
+		m_score = 0;
 
 		// initialize the panels
 		initPanels();
 
 		// add the gameBoard to the gameBoardPanel
-		gameBoardPanel.add(gameBoard, BorderLayout.CENTER);
+		m_gameBoardPanel.add(gameBoard, BorderLayout.CENTER);
 
 		// add the nextShapeBoard to the nextShapeBoardPanel
-		nextShapeBoardPanel.add(nextShapeBoard);
+		m_nextShapeBoardPanel.add(m_nextShapeBoard);
 
 		// create the subject
-		subject = new SubjectImpl();
+		m_subject = new SubjectImpl();
 	}
 
 	//**************************************************************************************************
@@ -79,7 +80,7 @@ public class BoardManager extends JPanel implements ActionListener, KeyListener,
 			restartGame();
 		}
 		// only run the logic if the current Shape of the game Board can no longer move down
-		else if (!gameBoard.getShape().canMoveDown())
+		else if (!m_gameBoard.getShape().canMoveDown())
 		{
 			// run the logic of the game
 			runLogic();
@@ -87,7 +88,7 @@ public class BoardManager extends JPanel implements ActionListener, KeyListener,
 		else
 		{
 			// move the current shape of the game Board down one position
-			gameBoard.moveShape("Down");
+			m_gameBoard.moveShape("Down");
 		}
 	}
 
@@ -99,7 +100,7 @@ public class BoardManager extends JPanel implements ActionListener, KeyListener,
 	public void attach(Observer observer)
 	{
 		// attach the Observer to the Subject
-		subject.attach(observer);
+		m_subject.attach(observer);
 	}
 
 	//**************************************************************************************************
@@ -110,7 +111,7 @@ public class BoardManager extends JPanel implements ActionListener, KeyListener,
 	public void detach(Observer observer)
 	{
 		// detach the Observer from the Subject
-		subject.detach(observer);
+		m_subject.detach(observer);
 	}
 
 	//**************************************************************************************************
@@ -120,10 +121,10 @@ public class BoardManager extends JPanel implements ActionListener, KeyListener,
 	public void displayMainPanel()
 	{
 		// display the gameBoard
-		gameBoard.displayBoardPanel();
+		m_gameBoard.displayBoardPanel();
 
 		// display the Board containing the next Shape
-		nextShapeBoard.displayBoardPanel();
+		m_nextShapeBoard.displayBoardPanel();
 	}
 
 	//**************************************************************************************************
@@ -133,13 +134,13 @@ public class BoardManager extends JPanel implements ActionListener, KeyListener,
 	public void endGame()
 	{
 		// stop the animation timer
-		animationTimer.stop();
+		m_animationTimer.stop();
 
 		// remove the key listener only there's actually a TetrisGUI associated with this BoardManager
-		if (window != null)
+		if (m_window != null)
 		{
 			// this BoardManager will no longer receive key events
-			window.removeKeyListener(this);
+			m_window.removeKeyListener(this);
 		}
 	}
 
@@ -154,8 +155,8 @@ public class BoardManager extends JPanel implements ActionListener, KeyListener,
 		boolean retVal = false;
 
 		// determine if it is game over
-		if ( gameBoard.getShape().onFirstRow() &&
-		    !gameBoard.getShape().canMoveDown())
+		if ( m_gameBoard.getShape().onFirstRow() &&
+		    !m_gameBoard.getShape().canMoveDown())
 		{
 			// it is game over
 			retVal = true;
@@ -172,7 +173,7 @@ public class BoardManager extends JPanel implements ActionListener, KeyListener,
 	public Timer getAnimationTimer()
 	{
 		// get the animation timer
-		return animationTimer;
+		return m_animationTimer;
 	}
 
 	//**************************************************************************************************
@@ -183,7 +184,7 @@ public class BoardManager extends JPanel implements ActionListener, KeyListener,
 	public Board getGameBoard()
 	{
 		// get the game Board
-		return gameBoard;
+		return m_gameBoard;
 	}
 
 	//**************************************************************************************************
@@ -194,7 +195,7 @@ public class BoardManager extends JPanel implements ActionListener, KeyListener,
 	public int getLevel()
 	{
 		// get the level of the game
-		return level;
+		return m_level;
 	}
 
 	//**************************************************************************************************
@@ -205,7 +206,7 @@ public class BoardManager extends JPanel implements ActionListener, KeyListener,
 	public int getScore()
 	{
 		// get the score of the game
-		return score;
+		return m_score;
 	}
 
 	//**************************************************************************************************
@@ -216,7 +217,7 @@ public class BoardManager extends JPanel implements ActionListener, KeyListener,
 	public JPanel getScorePanel()
 	{
 		// get the score panel
-		return scorePanel;
+		return m_scorePanel;
 	}
 
 	//**************************************************************************************************
@@ -227,7 +228,7 @@ public class BoardManager extends JPanel implements ActionListener, KeyListener,
 	public Board getNextShapeBoard()
 	{
 		// get the nextShapeBoard
-		return nextShapeBoard;
+		return m_nextShapeBoard;
 	}
 
 	//**************************************************************************************************
@@ -237,24 +238,24 @@ public class BoardManager extends JPanel implements ActionListener, KeyListener,
 		setLayout(new BorderLayout());
 
 		// create the panel that will hold the gameBoard
-		gameBoardPanel = new JPanel(new BorderLayout());
+		m_gameBoardPanel = new JPanel(new BorderLayout());
 
 		// create the panel that will hold a label displaying the score
-		scorePanel = new JPanel(new GridLayout(1, 2));
+		m_scorePanel = new JPanel(new GridLayout(1, 2));
 
 		// create the panel that will hold the nextShapeBoard
-		nextShapeBoardPanel = new JPanel(new GridLayout(5, 1));
+		m_nextShapeBoardPanel = new JPanel(new GridLayout(5, 1));
 
 		// add the boardPanel and the nextShapePanel to the mainPanel
-		add(gameBoardPanel, BorderLayout.CENTER);
-		add(nextShapeBoardPanel, BorderLayout.EAST);
+		add(m_gameBoardPanel, BorderLayout.CENTER);
+		add(m_nextShapeBoardPanel, BorderLayout.EAST);
 
 		// add the scorePanel to the gameBoardPanel
-		gameBoardPanel.add(scorePanel, BorderLayout.SOUTH);
+		m_gameBoardPanel.add(m_scorePanel, BorderLayout.SOUTH);
 	}
 
 	//**************************************************************************************************
-	/** Moves the current to the direction indicated by the keypress. Note that the following are the
+	/** Moves the current to the direction indicated by the key press. Note that the following are the
 	  * key being read:
 	  *                  left arrow key  = move left,
 	  *                  right arrow key = move right,
@@ -265,10 +266,10 @@ public class BoardManager extends JPanel implements ActionListener, KeyListener,
 	public void keyPressed(KeyEvent event)
 	{
 		// get the String representation of the key that was just pressed
-		String key = event.getKeyText(event.getKeyCode());
+		String key = KeyEvent.getKeyText(event.getKeyCode());
 
 		// move the shape of game board according to the key that was pressed
-		gameBoard.moveShape(key);
+		m_gameBoard.moveShape(key);
 	}
 
 	//**************************************************************************************************
@@ -296,7 +297,7 @@ public class BoardManager extends JPanel implements ActionListener, KeyListener,
 	public void notifyObservers()
 	{
 		// notify all the Observers of the Subject that a change has occurred
-		subject.notifyObservers();
+		m_subject.notifyObservers();
 	}
 
 	//**************************************************************************************************
@@ -320,13 +321,13 @@ public class BoardManager extends JPanel implements ActionListener, KeyListener,
 		if (choice == JOptionPane.YES_OPTION)
 		{
 			// reset the score
-			score = -1;
+			m_score = -1;
 
 			// reset the level
-			level = 1;
+			m_level = 1;
 
 			// reset the animation delay
-			animationDelay = 1000;
+			m_animationDelay = 1000;
 
 			// start the game again
 			startGame();
@@ -352,16 +353,16 @@ public class BoardManager extends JPanel implements ActionListener, KeyListener,
 		// NOTE: Set the current Shape of the game Board to be that which is contained in the //
 		//       nextShapeBoard.                                                              //
 		//************************************************************************************//
-		gameBoard.setShape( nextShapeBoard.getShape());
+		m_gameBoard.setShape(m_nextShapeBoard.getShape());
 
 		// generate a new next Shape
-		nextShapeBoard.setShape( nextShapeBoard.generateShape());
+		m_nextShapeBoard.setShape(m_nextShapeBoard.generateShape());
 
 		// cascade rows if there exists at least one full row
-		if (gameBoard.fullRowExists())
+		if (m_gameBoard.fullRowExists())
 		{
 			// cascade the full rows
-			gameBoard.cascadeRows();
+			m_gameBoard.cascadeRows();
 		}
 
 		// notify all observers
@@ -376,7 +377,7 @@ public class BoardManager extends JPanel implements ActionListener, KeyListener,
 	public void setLevel(int level)
 	{
 		// set the level of the game
-		this.level = level;
+		m_level = level;
 	}
 
 	//**************************************************************************************************
@@ -387,7 +388,7 @@ public class BoardManager extends JPanel implements ActionListener, KeyListener,
 	public void setScore(int score)
 	{
 		// set the score of the game
-		this.score = score;
+		m_score = score;
 	}
 
 	//**************************************************************************************************
@@ -397,28 +398,28 @@ public class BoardManager extends JPanel implements ActionListener, KeyListener,
 	public void startGame()
 	{
 		// clear both boards
-		gameBoard.clearBoard();
-		nextShapeBoard.clearBoard();
+		m_gameBoard.clearBoard();
+		m_nextShapeBoard.clearBoard();
 
 		// generate a new shape for the game board
-		gameBoard.setShape( gameBoard.generateShape());
+		m_gameBoard.setShape(m_gameBoard.generateShape());
 
 		// generate a new shape for the nextShapeBoard
-		nextShapeBoard.setShape( nextShapeBoard.generateShape());
+		m_nextShapeBoard.setShape(m_nextShapeBoard.generateShape());
 
 		// create the animation Timer
-		animationTimer = new Timer(animationDelay, this);
+		m_animationTimer = new Timer(m_animationDelay, this);
 
 		// display the main panel
 		displayMainPanel();
 
 		// initiate the animation Timer
-		animationTimer.start();
+		m_animationTimer.start();
 
 		// have BoardManager process Key events only if there's a TetrisGUI associated with this BoardManager
-		if (window != null)
+		if (m_window != null)
 		{
-			window.addKeyListener(this);
+			m_window.addKeyListener(this);
 		}
 	}
 }

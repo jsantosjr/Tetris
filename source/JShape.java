@@ -33,7 +33,7 @@ public class JShape extends ThreeSpaceShape
 	protected void initCoordinates()
 	{
 		// get the List of Blocks for this Shape
-		List blocks = getBlocks();
+		List<Block> blocks = getBlocks();
 		blocks.clear();
 
 		// get the focal Block
@@ -55,7 +55,7 @@ public class JShape extends ThreeSpaceShape
 		// set the rest of the Blocks
 		for (int i = 1; i < posFromFocus.length; i++)
 		{
-			// create a Block with it's cooresponding x and y positions
+			// create a Block with it's corresponding x and y positions
 			Block block = new Block(focalBlock.getXPos() + posFromFocus[i][0],
 			                        focalBlock.getYPos() + posFromFocus[i][1],
 			                        getColor());

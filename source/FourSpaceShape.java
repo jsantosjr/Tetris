@@ -34,7 +34,7 @@ public abstract class FourSpaceShape extends Shape
 		boolean retVal = true;
 
 		// get the List of Blocks that compose this Shape
-		List blocks = getBlocks();
+		List<Block> blocks = getBlocks();
 
 		// get the y position of the focal Block
 		int yPosOfFBlock = getFocalBlock().getYPos();
@@ -42,7 +42,7 @@ public abstract class FourSpaceShape extends Shape
 		for (int i = 0; i < blocks.size(); i++)
 		{
 			// get the next Block of this Shape
-			Block block = (Block)blocks.get(i);
+			Block block = blocks.get(i);
 
 			//************************************************************************************//
 			// NOTE: If the y position of the next Block is not equal to that of the focal Block, //
@@ -53,7 +53,6 @@ public abstract class FourSpaceShape extends Shape
 				retVal = false;
 				break;
 			}
-
 		}
 
 		return retVal;
@@ -73,7 +72,7 @@ public abstract class FourSpaceShape extends Shape
 		rotate(true, false);
 
 		// get the Blocks of this Shape
-		List blocks = getBlocks();
+		List<Block> blocks = getBlocks();
 
 		//***************************************************************************************//
 		// NOTE: Check if any of the Blocks lie on top of one of the BoardCells of this Shape's  //
@@ -83,7 +82,7 @@ public abstract class FourSpaceShape extends Shape
 		for (int i = 0; i < blocks.size(); i++)
 		{
 			// get the next Block of this Shape
-			Block block = (Block)blocks.get(i);
+			Block block = blocks.get(i);
 
 			// get the BoardCell that's at the same position as the new Block
 			BoardCell boardCell = getBoard().getBoardCell(block.getXPos(), block.getYPos());
@@ -100,7 +99,6 @@ public abstract class FourSpaceShape extends Shape
 			{
 				retVal = false;
 				break;
-
 			}
 		}
 
@@ -133,7 +131,7 @@ public abstract class FourSpaceShape extends Shape
 		removeFromBoard(remove);
 
 		// get the List of Blocks that compose this Shape
-		List blocks = getBlocks();
+		List<Block> blocks = getBlocks();
 
         // get the focal Block
         Block focalBlock = getFocalBlock();
@@ -145,14 +143,14 @@ public abstract class FourSpaceShape extends Shape
 		// NOTE: If the all the Blocks of this Shape are on the same row, then we'll want to //
 		//       rotate the Shape so that it's positioned vertically. After rotating it, the //
 		//       Shape should look as follows:												 //
-		// 																					 //
-		//                       *    														 //
-		//                       #                                                           //
-		//                       * 															 //
+		//                                                                                   //
 		//                       *                                                           //
-		//                        															 //
+		//                       #                                                           //
+		//                       *                                                           //
+		//                       *                                                           //
+		//                                                                                   //
 		//       Note that the # indicates the focal Block while the *'s indicate all the    //
-		//       other Blocks. 																 //
+		//       other Blocks.                                                               //
 		//***********************************************************************************//
 		if (blocksOnSameRow())
 		{
@@ -160,13 +158,13 @@ public abstract class FourSpaceShape extends Shape
 			// NOTE: This holds the distances of each Block relative to the focal Block. Note that //
 			//       the first element of each array holds the relative x position while the       //
 			//       second element of each array holds the relative y position.                   //
-			//    																				   //
+			//                                                                                     //
 			//                1st element = relative x position                                    //
 			//                2nd element = relative y position                                    //
-			//																					   //
+			//                                                                                     //
 			//       Note that the first array holds the relative x and y positions of the focal   //
 			//       Block. Both values are equal to 0 since the focal Block stays put when this   //
-			//       Shape is rotated. 															   //
+			//       Shape is rotated.                                                             //
 			//*************************************************************************************//
 			int relativePos[][] = {{0, 0},{0, -1},{0, 1},{0, 2}};
 
@@ -176,10 +174,10 @@ public abstract class FourSpaceShape extends Shape
 
 		//*********************************************************************************//
 		// NOTE: Rotate the Shape so that it's positioned horizontally. After rotating it, //
-		//       the Shape should look as follows:										   //
-		//         																		   //
-		//                             *#*** 							                   //
-		//  																			   //
+		//       the Shape should look as follows:                                         //
+		//                                                                                 //
+		//                             *#***                                               //
+		//                                                                                 //
 		//       Note that the # indicates the focal Block while the *'s indicate all the  //
 		//       other Blocks. 															   //
 		//*********************************************************************************//

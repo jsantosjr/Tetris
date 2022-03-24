@@ -9,22 +9,24 @@ import java.util.ArrayList;
 import javax.swing.*;
 import javax.swing.JOptionPane;
 
+@SuppressWarnings("serial")
 public class TetrisGUI extends JFrame
 {
 	// data members
-	private Board        opponentBoard;
-	private Board        playerBoard;
-	private BoardManager opponentBoardManager;
-	private BoardManager playerBoardManager;
-	private LevelManager opponentLevelManager;
-	private LevelManager playerLevelManager;
-	private ScoreManager opponentScoreManager;
-	private ScoreManager playerScoreManager;
+	private Board        m_opponentBoard;
+	private Board        m_playerBoard;
+	private BoardManager m_opponentBoardManager;
+	private BoardManager m_playerBoardManager;
+	private LevelManager m_opponentLevelManager;
+	private LevelManager m_playerLevelManager;
+	private ScoreManager m_opponentScoreManager;
+	private ScoreManager m_playerScoreManager;
 
 	public static void main(String args[])
 	{
 		// create the TetrisGUI
 		TetrisGUI tetrisGUI = new TetrisGUI();
+		tetrisGUI.run();
 	}
 	//**************************************************************************************************
 	public TetrisGUI()
@@ -53,10 +55,6 @@ public class TetrisGUI extends JFrame
 		// display the window
 		setVisible(true);
 
-		// start the tetris game
-		playerBoardManager.startGame();
-		//opponentBoardManager.startGame();
-
 		// close the program when the x is pressed
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
@@ -64,52 +62,59 @@ public class TetrisGUI extends JFrame
 	private void initBoardManagers()
 	{
 		// create the Board for the player on this machine
-		playerBoard = new Board(16, 10, "Player 1", Color.BLACK);
+		m_playerBoard = new Board(16, 10, "Player 1", Color.BLACK);
 
 		// create the Board for the opponent
-		opponentBoard = new Board(16, 10, "Player 2", Color.BLACK);
+		m_opponentBoard = new Board(16, 10, "Player 2", Color.BLACK);
 
 		// set the content pane to have a 1 x 2 grid layout
 		getContentPane().setLayout(new GridLayout(1, 2));
 
 		// create the two BoardManagers
-		playerBoardManager   = new BoardManager(playerBoard, this);
-		opponentBoardManager = new BoardManager(opponentBoard, null);
+		m_playerBoardManager   = new BoardManager(m_playerBoard, this);
+		m_opponentBoardManager = new BoardManager(m_opponentBoard, null);
 
 		// add the playerBoardManager to the content pane
-		getContentPane().add(playerBoardManager);
+		getContentPane().add(m_playerBoardManager);
 
 		// add the opponentBoardManager to the content pane
-		//getContentPane().add(opponentBoardManager);
+		//getContentPane().add(m_opponentBoardManager);
 	}
 	//**************************************************************************************************
 	private void initLevelManagers()
 	{
 		// create the LevelManager that will observe the BoardManager of the player on this machine
-		playerLevelManager = new LevelManager(playerBoardManager);
+		m_playerLevelManager = new LevelManager(m_playerBoardManager);
 
 		// create the LevelManager that will observe the BoardManager of the opponent
-		opponentLevelManager = new LevelManager(opponentBoardManager);
+		m_opponentLevelManager = new LevelManager(m_opponentBoardManager);
 
 		// attach the playerLevelManager to the playerBoardManager
-		playerBoardManager.attach( playerLevelManager);
+		m_playerBoardManager.attach(m_playerLevelManager);
 
 		// attach the opponentLevelManager to the opponentBoardManager
-		//opponentBoardManager.attach( opponentLevelManager);
+		m_opponentBoardManager.attach(m_opponentLevelManager);
 	}
 	//**************************************************************************************************
 	private void initScoreManagers()
 	{
 		// create the ScoreManager that will observe the BoardManager of the player on this machine
-		playerScoreManager = new ScoreManager(playerBoardManager);
+		m_playerScoreManager = new ScoreManager(m_playerBoardManager);
 
 		// create the ScoreManager that will observe the BoardManager of the opponent
-		opponentScoreManager = new ScoreManager(opponentBoardManager);
+		m_opponentScoreManager = new ScoreManager(m_opponentBoardManager);
 
 		// attach the playerScoreManager to the playerBoardManager
-		playerBoardManager.attach( playerScoreManager);
+		m_playerBoardManager.attach(m_playerScoreManager);
 
 		// attach the opponentScoreManager to the opponentBoardManager
-		//opponentBoardManager.attach( opponentScoreManager);
+		m_opponentBoardManager.attach(m_opponentScoreManager);
+	}
+	//**************************************************************************************************
+	public void run()
+	{
+		// start the Tetris game
+		m_playerBoardManager.startGame();
+		//m_opponentBoardManager.startGame();
 	}
 }

@@ -11,9 +11,9 @@ import java.awt.Color;
 public class Block
 {
 	// data members
-	private int   xPos;
-	private int   yPos;
-	private Color color;
+	private int   m_xPos;
+	private int   m_yPos;
+	private Color m_color;
 
 	//**************************************************************************************************
 	/** Constructs a Block object at x position 0 and y position 0. Note that the color is initialized to
@@ -60,11 +60,11 @@ public class Block
 	public Block(int xPos, int yPos, Color color)
 	{
 		// set the x and y position of the Block
-		this.xPos = xPos;
-		this.yPos = yPos;
+		m_xPos = xPos;
+		m_yPos = yPos;
 
 		// set the color of the Block
-		this.color = color;
+		m_color = color;
 	}
 
 	//**************************************************************************************************
@@ -75,7 +75,7 @@ public class Block
 	public Color getColor()
 	{
 		// get the Color of this Block
-		return color;
+		return m_color;
 	}
 
 	//**************************************************************************************************
@@ -86,7 +86,7 @@ public class Block
 	public int getXPos()
 	{
 		// get the x position
-		return xPos;
+		return m_xPos;
 	}
 
 	//**************************************************************************************************
@@ -97,7 +97,7 @@ public class Block
 	public int getYPos()
 	{
 		// get the y position
-		return yPos;
+		return m_yPos;
 	}
 
 	//**************************************************************************************************
@@ -108,7 +108,7 @@ public class Block
 	public void setColor(Color color)
 	{
 		// set the Color
-		this.color = color;
+		m_color = color;
 	}
 
 	//**************************************************************************************************
@@ -119,7 +119,7 @@ public class Block
 	public void setXPos(int xPos)
 	{
 		// set the x position
-		this.xPos = xPos;
+		m_xPos = xPos;
 	}
 
 	//**************************************************************************************************
@@ -130,6 +130,6 @@ public class Block
 	public void setYPos(int yPos)
 	{
 		// set the y position
-		this.yPos = yPos;
+		m_yPos = yPos;
 	}
 }

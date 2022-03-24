@@ -10,22 +10,22 @@ import javax.swing.*;
   * animation timer will be decreased.
   */
 //******************************************************************************************************
+@SuppressWarnings("serial")
 public class LevelManager extends JLabel implements Observer
 {
 	// data members
-	private BoardManager boardManager;
-	private int          level;
+	private BoardManager m_boardManager;
 
 	public LevelManager(BoardManager boardManager)
 	{
 		// store a reference to the BoardManager that this ScoreManager is observing
-		this.boardManager = boardManager;
+		m_boardManager = boardManager;
 
 		// set the text of this Label to display the current level
 		setText("Level: " + boardManager.getLevel());
 
 		// add LevelManager to the score panel of the BoardManager
-		this.boardManager.getScorePanel().add(this);
+		m_boardManager.getScorePanel().add(this);
 
 		// set the label visible
 		setVisible(true);
@@ -35,10 +35,10 @@ public class LevelManager extends JLabel implements Observer
 	public void update()
 	{
 		// get the score of the BoardManager
-		int score = boardManager.getScore();
+		int score = m_boardManager.getScore();
 
 		// get the animation delay of the animation timer in the BoardManager
-		int animationDelay = boardManager.getAnimationTimer().getDelay();
+		int animationDelay = m_boardManager.getAnimationTimer().getDelay();
 
 		// decrease the current animation delay by 200
 		animationDelay -= 200;
@@ -53,14 +53,14 @@ public class LevelManager extends JLabel implements Observer
 			if (score % 10 == 0 && animationDelay >= 200)
 			{
 				// increase the level by 1
-				boardManager.setLevel( boardManager.getLevel() + 1);
+				m_boardManager.setLevel(m_boardManager.getLevel() + 1);
 
 				// set the new animation delay so that the game runs faster
-				boardManager.getAnimationTimer().setDelay(animationDelay);
+				m_boardManager.getAnimationTimer().setDelay(animationDelay);
 			}
 		}
 
 		// update the level on the display
-		setText("Level: " + boardManager.getLevel());
+		setText("Level: " + m_boardManager.getLevel());
 	}
 }
